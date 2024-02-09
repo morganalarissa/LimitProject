@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\LimitProject.Domain\LimitProject.Domain.csproj" />
     <ProjectReference Include="..\LimitProject.Infrastructure\LimitProject.Infrastructure.csproj" />
+    <ProjectReference Include="..\LimitProject.Services\LimitProject.Services.csproj" />
   </ItemGroup>
 
 </Project>

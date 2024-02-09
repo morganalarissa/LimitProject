@@ -34,15 +34,16 @@ namespace LimitProject.Infrastructure.Repositories
             await _dbContext.DeleteAsync<Client>(document, name);
         }
 
-        public async Task<Client> SearchAsync(int id)
+        public async Task<Client> GetClientByIdAsync(int clientId)
         {
-            return await _dbContext.LoadAsync<Client>(id);
+            return await _dbContext.LoadAsync<Client>(clientId);
         }
 
         public async Task<List<Client>> GetAllAsync()
         {
             var conditions = new List<ScanCondition>();
-            return await _dbContext.ScanAsync<Client>(conditions).GetRemainingAsync();
+            var allClients = await _dbContext.ScanAsync<Client>(conditions).GetRemainingAsync();
+            return allClients;
         }
     }
 }

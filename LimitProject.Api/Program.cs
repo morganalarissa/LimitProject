@@ -3,6 +3,7 @@ using Amazon.DynamoDBv2;
 using Amazon.Extensions.NETCore.Setup;
 using LimitProject.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
+using LimitProject.Services.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,14 +20,15 @@ AWSOptions awsOptions = builder.Configuration.GetAWSOptions();
 // Configure AWS service clients to use these credentials
 builder.Services.AddDefaultAWSOptions(awsOptions);
 
-// These AWS service clients will be singleton by default
-//builder.Services.AddAWSService<IAmazonS3>();
-//builder.Services.AddAWSService<IAmazonSQS>();
+
 builder.Services.AddAWSService<IAmazonDynamoDB>();
 builder.Services.AddScoped<IDynamoDBContext, DynamoDBContext>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<ClientService>();
 
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

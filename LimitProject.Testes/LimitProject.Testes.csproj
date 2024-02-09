@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LimitProject.Domain\LimitProject.Domain.csproj" />
+    <ProjectReference Include="..\LimitProject.Infrastructure\LimitProject.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

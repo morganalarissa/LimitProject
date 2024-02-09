@@ -26,7 +26,7 @@ namespace LimitProject.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetClient(int id)
         {
-            var client = await _clientRepository.SearchAsync(id);
+            var client = await _clientRepository.GetClientByIdAsync(id);
             if (client == null)
             {
                 return NotFound();

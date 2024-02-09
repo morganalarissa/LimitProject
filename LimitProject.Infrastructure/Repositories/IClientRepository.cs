@@ -12,7 +12,7 @@ namespace LimitProject.Infrastructure.Repositories
         Task CreateAsync(Client client);
         Task UpdateAsync(Client client);
         Task DeleteAsync(string document, string name);
-        Task<Client> SearchAsync(int id);
+        Task<Client> GetClientByIdAsync(int clientId);
         Task<List<Client>> GetAllAsync();
 
     }
