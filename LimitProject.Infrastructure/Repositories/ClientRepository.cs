@@ -1,6 +1,8 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using LimitProject.Domain.Entities;
+using LimitProject.Domain.Enum;
+using LimitProject.Domain.Setup;
 using LimitProject.Infrastructure.Context;
 using System;
 using System.Collections.Generic;
@@ -12,38 +14,37 @@ namespace LimitProject.Infrastructure.Repositories
 {
     public class ClientRepository : IClientRepository
     {
-        private readonly IDynamoDBContext _dbContext;
-
-        public ClientRepository(IAmazonDynamoDB dynamoDBClient)
+        private readonly IContext _context;
+        public ClientRepository() 
+        { 
+            if(AppConfiguration.SELECTED_DATABASE.Equals(DatabaseType.Fake))
+            {
+                _context = new FakeContext();
+            }
+        }
+        public void Delete(int id)
         {
-            _dbContext = new DynamoDBContext(dynamoDBClient);
+            _context.DeleteClient(id);
         }
 
-        public async Task CreateAsync(Client client)
+        public List<Client> List()
         {
-            await _dbContext.SaveAsync(client);
+            return _context.GetClient();   
         }
 
-        public async Task UpdateAsync(Client client)
+        public void Save(Client client)
         {
-            await _dbContext.SaveAsync(client);
+            _context.CreateClient(client);
         }
 
-        public async Task DeleteAsync(string document, string name)
+        public Client Search(int id)
         {
-            await _dbContext.DeleteAsync<Client>(document, name);
+            return _context.GetClientById(id);
         }
 
-        public async Task<Client> GetClientByIdAsync(int clientId)
+        public void Update(Client client)
         {
-            return await _dbContext.LoadAsync<Client>(clientId);
-        }
-
-        public async Task<List<Client>> GetAllAsync()
-        {
-            var conditions = new List<ScanCondition>();
-            var allClients = await _dbContext.ScanAsync<Client>(conditions).GetRemainingAsync();
-            return allClients;
+            _context.UpdateClient(client);
         }
     }
 }

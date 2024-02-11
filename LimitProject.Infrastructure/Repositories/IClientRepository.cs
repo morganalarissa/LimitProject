@@ -9,11 +9,11 @@ namespace LimitProject.Infrastructure.Repositories
 {
     public interface IClientRepository
     {
-        Task CreateAsync(Client client);
-        Task UpdateAsync(Client client);
-        Task DeleteAsync(string document, string name);
-        Task<Client> GetClientByIdAsync(int clientId);
-        Task<List<Client>> GetAllAsync();
+        public void Save(Client client);
+        public void Update(Client client);
+        public void Delete(int id);
+        public Client Search(int id);
+        public List<Client> List();
 
     }
 }

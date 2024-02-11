@@ -16,19 +16,26 @@ namespace LimitProject.Services.Service
         {
             _clientRepository = clientRepository;
         }
-
-        public async Task<bool> ProcessPixTransaction(int clientId, decimal transactionAmount)
+        public List<Client> List()
         {
-            var client = await _clientRepository.GetClientByIdAsync(clientId);
-            if (client == null) return false;
+            return _clientRepository.List();
+        }
+        public Client Search(int id)
+        {
+            return _clientRepository.Search(id);
+        }
 
-            if (client.CurrentLimit >= transactionAmount)
-            {
-                client.CurrentLimit -= transactionAmount;
-                await _clientRepository.UpdateAsync(client);
-                return true;
-            }
-            return false;
+        public void Save(Client client) 
+        {
+            _clientRepository.Save(client);
+        }
+        public void Update(Client client)
+        {
+            _clientRepository.Update(client);
+        }
+        public void Delete(int id)
+        {
+            _clientRepository.Delete(id);
         }
     }
 }

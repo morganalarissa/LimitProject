@@ -7,11 +7,18 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LimitProject.Testes
+namespace LimitProject.Testes.Domain
 {
     public class DomainTest
     {
-        public void TestEntity()
+        public void Execute()
+        {
+            TestEntity();
+            TestDto();
+            ConvertTestEntityToDto();
+            ConvertTestDtoToEntity();
+        }
+        private void TestEntity()
         {
             Client client = new Client
             {
@@ -29,7 +36,7 @@ namespace LimitProject.Testes
             Console.WriteLine(message);
         }
 
-        public void TestDto()
+        private void TestDto()
         {
             ClientDto client = new ClientDto
             {
@@ -47,7 +54,7 @@ namespace LimitProject.Testes
             Console.WriteLine(message);
         }
 
-        public void ConvertTestEntityToDto()
+        private void ConvertTestEntityToDto()
         {
             Client client = new Client
             {
@@ -67,13 +74,13 @@ namespace LimitProject.Testes
             Console.WriteLine(message);
         }
 
-        public void ConvertTestDtoToEntity()
+        private void ConvertTestDtoToEntity()
         {
             ClientDto client = new ClientDto
             {
                 ClientId = 1,
                 Document = "001",
-                Name = "Morgana",
+                Name = "Pedro",
                 AgencyNumber = 0001,
                 AccountNumber = 12354,
                 MaximumLimit = 500,
