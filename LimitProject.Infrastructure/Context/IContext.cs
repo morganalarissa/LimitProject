@@ -14,5 +14,6 @@ namespace LimitProject.Infrastructure.Context
         public Client GetClientById(int id);        
         public void UpdateClient(Client client);
         public void DeleteClient(int id);
+        public int NextId();
     }
 }

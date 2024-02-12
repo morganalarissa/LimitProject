@@ -1,5 +1,6 @@
 ﻿using LimitProject.Domain.Entities;
 using LimitProject.Infrastructure.Repositories;
+using LimitProject.Testes.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,19 +58,8 @@ namespace LimitProject.Testes.Repositories
 
         private void ValidateClientRegister()
         {
-            int id = 100;
-
-            Client client = new Client
-            {
-                ClientId = 100,
-                Document = "111111111111",
-                Name = "Naruto",
-                AgencyNumber = 1,
-                AccountNumber = 1,
-                MaximumLimit = 1000,
-                CurrentLimit = 1000,
-                DateTransaction = DateTime.Now,
-            };
+            Client client = ClientFactory.GetNewClient();
+            int id = client.ClientId;
 
             _clientRepository.Save(client);
 
@@ -94,7 +84,7 @@ namespace LimitProject.Testes.Repositories
 
         private void ValidateClientExclusion()
         {
-            int id = 1;
+            int id = 15;
             _clientRepository.Delete(id);
 
             Client client = _clientRepository.Search(id);

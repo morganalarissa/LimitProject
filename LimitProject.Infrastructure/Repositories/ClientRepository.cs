@@ -32,11 +32,6 @@ namespace LimitProject.Infrastructure.Repositories
             return _context.GetClient();   
         }
 
-        public void Save(Client client)
-        {
-            _context.CreateClient(client);
-        }
-
         public Client Search(int id)
         {
             return _context.GetClientById(id);
@@ -45,6 +40,12 @@ namespace LimitProject.Infrastructure.Repositories
         public void Update(Client client)
         {
             _context.UpdateClient(client);
+        }
+
+        public void Save(Client client)
+        {
+            client.ClientId = _context.NextId();
+            _context.CreateClient(client);
         }
     }
 }

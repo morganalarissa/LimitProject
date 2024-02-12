@@ -1,5 +1,6 @@
 ﻿using LimitProject.Domain.Entities;
 using LimitProject.Infrastructure.Context;
+using LimitProject.Testes.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,22 +33,10 @@ namespace LimitProject.Testes.Contexts
 
         private void TestInclusion()
         {
-            Client client = new Client
-            {
-                ClientId = 10,
-                Name = "Eliane",
-                Document = "54848",
-                AgencyNumber = 5,
-                AccountNumber = 5515,
-                MaximumLimit = 10,
-                CurrentLimit = 10,
-                DateTransaction = DateTime.Now,
-            };
-
+            Client client = ClientFactory.GetNewClient();
+            client.ClientId = 40;
             _context.CreateClient(client);
-
             Client result = _context.GetClientById(client.ClientId);
-            Console.WriteLine($"Client inclusion Id:{client.ClientId}, Nome:{client.Name}");
         }
 
     }

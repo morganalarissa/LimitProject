@@ -1,0 +1,77 @@
+﻿@model IEnumerable<LimitProject.Web.Models.ClientViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Client List</h4>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Document)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgencyNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaximumLimit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentLimit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateTransaction)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Document)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgencyNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaximumLimit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentLimit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTransaction)
+            </td>
+            <td>
+                @Html.ActionLink("Update", "Edit", new { id = item.ClientId }) |
+                @Html.ActionLink("Details", "Get", new { id = item.ClientId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ClientId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

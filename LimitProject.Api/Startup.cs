@@ -20,8 +20,8 @@ namespace LimitProject.Api
         }
 
         private void RegisterDependencies(IServiceCollection services)
-        { 
-            services.AddScoped<IClientRepository, ClientRepository>();
+        {
+            services.AddSingleton<IClientRepository, ClientRepository>();
 
             services.AddScoped<ClientService>();
         }

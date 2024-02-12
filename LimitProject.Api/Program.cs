@@ -4,6 +4,7 @@ using Amazon.Extensions.NETCore.Setup;
 using LimitProject.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using LimitProject.Services.Service;
+using LimitProject.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,9 +22,10 @@ AWSOptions awsOptions = builder.Configuration.GetAWSOptions();
 builder.Services.AddDefaultAWSOptions(awsOptions);
 
 
-builder.Services.AddAWSService<IAmazonDynamoDB>();
-builder.Services.AddScoped<IDynamoDBContext, DynamoDBContext>();
-builder.Services.AddScoped<IClientRepository, ClientRepository>();
+//builder.Services.AddAWSService<IAmazonDynamoDB>();
+//builder.Services.AddScoped<IDynamoDBContext, DynamoDBContext>();
+
+builder.Services.AddSingleton<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<ClientService>();
 
 var app = builder.Build();
@@ -42,3 +44,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+

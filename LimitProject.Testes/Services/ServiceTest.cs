@@ -1,6 +1,7 @@
 ﻿using LimitProject.Domain.Entities;
 using LimitProject.Infrastructure.Repositories;
 using LimitProject.Services.Service;
+using LimitProject.Testes.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,7 +52,7 @@ namespace LimitProject.Testes.Services
         private void ValidateClientSearch()
         {
             Console.WriteLine("\nService Test : ValidateClientSearch");
-            int id = 5;
+            int id = 1;
             Client client = _clientService.Search(id);
 
             Console.WriteLine($"Ïd:{client.ClientId}, Documento: {client.Document}, Nome:{client.Name}," +
@@ -62,19 +63,10 @@ namespace LimitProject.Testes.Services
         private void ValidateClientRegister()
         {
             Console.WriteLine("\nService Test : ValidateClientRegister");
-            int id = 100;
+            
 
-            Client client = new Client
-            {
-                ClientId = 100,
-                Document = "111111111111",
-                Name = "Naruto",
-                AgencyNumber = 1,
-                AccountNumber = 1,
-                MaximumLimit = 1000,
-                CurrentLimit = 1000,
-                DateTransaction = DateTime.Now,
-            };
+            Client client = ClientFactory.GetNewClient();
+            int id = client.ClientId;
 
             _clientService.Save(client);
 
@@ -87,9 +79,9 @@ namespace LimitProject.Testes.Services
         private void ValidateClientUpdate()
         {
             Console.WriteLine("\nService Test : ValidateClientUpdate");
-            int id = 3;
+            int id = 1;
             Client client = _clientService.Search(id);
-            client.Name = "Josefa Up2";
+            client.Name = "Josefa Targaryen";
             _clientService.Update(client);
 
             Client searchObj = _clientService.Search(id);
@@ -101,7 +93,7 @@ namespace LimitProject.Testes.Services
         private void ValidateClientExclusion()
         {
             Console.WriteLine("\nService Test : ValidateClientExclusion");
-            int id = 1;
+            int id = 15;
             _clientService.Delete(id);
 
             Client client = _clientService.Search(id);

@@ -132,5 +132,12 @@ namespace LimitProject.Infrastructure.Context
             };
             _clients.Add(client);
         }
+
+        public int NextId()
+        {
+            int id = _clients.Max(p => p.ClientId);
+            id++;
+            return id;
+        }
     }
 }

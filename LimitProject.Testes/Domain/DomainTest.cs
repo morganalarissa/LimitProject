@@ -1,5 +1,6 @@
 ﻿using LimitProject.Domain.Dtos;
 using LimitProject.Domain.Entities;
+using LimitProject.Testes.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,17 +21,7 @@ namespace LimitProject.Testes.Domain
         }
         private void TestEntity()
         {
-            Client client = new Client
-            {
-                ClientId = 1,
-                Document = "001",
-                Name = "Morgana",
-                AgencyNumber = 0001,
-                AccountNumber = 12354,
-                MaximumLimit = 500,
-                CurrentLimit = 50,
-                DateTransaction = DateTime.Now,
-            };
+            Client client = ClientFactory.GetClient();
 
             string message = $"Id: {client.ClientId}, Name: {client.Name}";
             Console.WriteLine(message);
@@ -38,17 +29,7 @@ namespace LimitProject.Testes.Domain
 
         private void TestDto()
         {
-            ClientDto client = new ClientDto
-            {
-                ClientId = 1,
-                Document = "001",
-                Name = "Morgana",
-                AgencyNumber = 0001,
-                AccountNumber = 12354,
-                MaximumLimit = 500,
-                CurrentLimit = 50,
-                DateTransaction = DateTime.Now,
-            };
+            ClientDto client = ClientDtoFactory.GetClientDto();
 
             string message = $"Id: {client.ClientId}, Name: {client.Name}";
             Console.WriteLine(message);
@@ -56,17 +37,7 @@ namespace LimitProject.Testes.Domain
 
         private void ConvertTestEntityToDto()
         {
-            Client client = new Client
-            {
-                ClientId = 1,
-                Document = "001",
-                Name = "Morgana",
-                AgencyNumber = 0001,
-                AccountNumber = 12354,
-                MaximumLimit = 500,
-                CurrentLimit = 50,
-                DateTransaction = DateTime.Now,
-            };
+            Client client = ClientFactory.GetClient();
 
             ClientDto dto = client.ConvertToDto();
 
@@ -76,17 +47,7 @@ namespace LimitProject.Testes.Domain
 
         private void ConvertTestDtoToEntity()
         {
-            ClientDto client = new ClientDto
-            {
-                ClientId = 1,
-                Document = "001",
-                Name = "Pedro",
-                AgencyNumber = 0001,
-                AccountNumber = 12354,
-                MaximumLimit = 500,
-                CurrentLimit = 50,
-                DateTransaction = DateTime.Now,
-            };
+            ClientDto client = ClientDtoFactory.GetClientDto();
 
             Client entity = client.ConvertToEntity();
             string message = $"Id: {entity.ClientId}, Name: {entity.Name}";

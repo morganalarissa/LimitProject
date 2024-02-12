@@ -1,6 +1,7 @@
-﻿//using LimitProject.Domain.Dtos;
+﻿using LimitProject.Domain.Dtos;
 using LimitProject.Domain.Entities;
-using LimitProject.Infrastructure.Repositories;
+using LimitProject.Services.Service;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LimitProject.Api.Controllers
@@ -9,43 +10,89 @@ namespace LimitProject.Api.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private readonly IClientRepository _clientRepository;
+        private readonly ClientService _clientService;
 
-        public ClientController(IClientRepository clientRepository)
+        public ClientController(ClientService clientService)
         {
-            _clientRepository = clientRepository;
+            _clientService = clientService;
+        }
+
+
+        [HttpGet]
+        public List<ClientDto> Get()
+        {
+            try
+            {
+                List<Client> clients = _clientService.List();
+                List<ClientDto> clientsDto = clients != null ? Client.ConvertToDto(clients) : null;
+
+                return clientsDto;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        [HttpGet]
+        [Route("{id}")]
+        public ClientDto Get(int id)
+        {
+            try
+            {
+                Client client = _clientService.Search(id);
+                ClientDto dto = client != null ? client.ConvertToDto() : null;
+                return dto;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public string Delete(int id)
+        {
+            try
+            {
+                _clientService.Delete(id);
+                return $"Cliente excluído com sucesso id:{id}";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateClient([FromBody] Client client)
+        public string Post([Bind("name, document, agencyNumber, accountNumber, maximumLimit, currentLimit, dateTransaction")]ClientDto clientDto)
         {
-            await _clientRepository.CreateAsync(client);
-            return Ok(client);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetClient(int id)
-        {
-            var client = await _clientRepository.GetClientByIdAsync(id);
-            if (client == null)
+            try
             {
-                return NotFound();
+                Client client = clientDto.ConvertToEntity();
+                _clientService.Save(client);
+                return $"{client.Name} sua conta foi criada com sucesso. Id: {client.ClientId}";
             }
-            return Ok(client);
+            catch (Exception ex)
+            {
+                throw ex;
+            }  
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateClient([FromBody] Client client)
+        public string Put([FromBody]ClientDto clientDto)
         {
-            await _clientRepository.UpdateAsync(client);
-            return Ok(client);
-        }
-
-        [HttpDelete("{document}")]
-        public async Task<IActionResult> DeleteClient(string document, string name)
-        {
-            await _clientRepository.DeleteAsync(document, name);
-            return NoContent();
+            try
+            {
+                Client client = clientDto.ConvertToEntity();
+                _clientService.Update(client);
+                return $"Cliente: {client.Name} atualizado com sucesso. Id: {client.ClientId}";
+            }
+            catch (Exception ex) 
+            {
+                throw ex;
+            }
         }
     }
 }
