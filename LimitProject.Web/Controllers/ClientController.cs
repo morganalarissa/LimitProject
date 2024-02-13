@@ -10,16 +10,21 @@ namespace LimitProject.Web.Controllers
     {
         #region Properties
 
-        private readonly string ENDPOINT = "http://localhost:5000/api/client/";
+        private readonly string ENDPOINT = "";
         private readonly HttpClient httpClient = null;
+
+        private readonly IConfiguration _configuration;
 
         #endregion
 
         #region Constructors
-        public ClientController()
+        public ClientController(IConfiguration configuration)
         {
+            _configuration = configuration;
+            ENDPOINT = _configuration["AppConfig:Endpoints:Url_Api"];
+
             httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(ENDPOINT); 
+            httpClient.BaseAddress = new Uri(ENDPOINT);
         }
         #endregion
         public async Task<IActionResult> Index()
