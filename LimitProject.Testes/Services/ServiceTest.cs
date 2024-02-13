@@ -71,9 +71,12 @@ namespace LimitProject.Testes.Services
             _clientService.Save(client);
 
             Client searchObj = _clientService.Search(id);
-            Console.WriteLine($"Ïd:{searchObj.ClientId}, Documento: {searchObj.Document}, Nome:{searchObj.Name}," +
+            if (searchObj != null)
+            {
+                Console.WriteLine($"Ïd:{searchObj.ClientId}, Documento: {searchObj.Document}, Nome:{searchObj.Name}," +
                 $" Agencia:{searchObj.AgencyNumber}, Conta:{searchObj.AccountNumber}, Limite:{searchObj.MaximumLimit}," +
                 $" Limite Atual: {searchObj.CurrentLimit}, $ Data:{searchObj.DateTransaction}");
+            }
         }
 
         private void ValidateClientUpdate()
